@@ -23,10 +23,18 @@ public class BibliotecaApp {
         System.out.println("1: Show list of available books");
         Scanner userInput = new Scanner(System.in);
         int option = Integer.parseInt(userInput.nextLine());
+        while(option != 0){
         switch(option) {
             case 1:
                 printAvailableBooks(Library);
-                break;
+                option = Integer.parseInt(userInput.nextLine());
+                continue;
+            case 0:
+                System.exit(0);
+            default:
+                System.out.println("Please select a valid option!");
+                option = Integer.parseInt(userInput.nextLine());
+            }
         }
     }
 
