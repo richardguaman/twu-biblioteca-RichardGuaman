@@ -3,11 +3,21 @@ package com.twu.biblioteca;
 
 import org.junit.Test;
 import org.junit.Before;
+
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
 
 public class ExampleTest {
     Book book1 = new Book("TestName", "Bob Doe", 1990);
     Book book2 = new Book("Animal Book", "John Dave", 1994);
+    ArrayList<Book> Library = new ArrayList<Book>(){
+        {
+            add(book1);
+            add(book2);
+        }
+    };
+
 
     @Test
     public void testBookNamePrint() {
@@ -29,5 +39,9 @@ public class ExampleTest {
     public void testBookPrintAllInfo(){
         assertEquals(book1.printBookInfo(), "TestName" + "\t" + "Bob Doe" + "\t" + 1990);
         assertEquals(book2.printBookInfo(), "Animal Book" + "\t" + "John Dave" + "\t" + 1994);
+    }
+    @Test
+    public void testCorrectOptionChosen(){
+
     }
 }
