@@ -35,6 +35,7 @@ public class BibliotecaApp {
         System.out.println("Please select an option:");
         System.out.println("1: Show list of available books");
         System.out.println("2: Check out book");
+        System.out.println("3: Return a book");
         Scanner userInput = new Scanner(System.in);
         int option = userInput.nextInt();
         while (option != 0) {
@@ -49,8 +50,21 @@ public class BibliotecaApp {
                     printAvailableBooks();
                     Scanner getTitleFromUser = new Scanner(System.in);
                     String bookTitle = getTitleFromUser.nextLine();
-                    removeBookFromLibrary(bookTitle);
+                    try {
+                        removeBookFromLibrary(bookTitle);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                     System.out.println("Thank you! Enjoy the book");
+                    option = userInput.nextInt();
+                    break;
+
+                case 3:
+                    System.out.println("Please enter the title of the book you are trying to return from the options below:");
+                    printCheckedOutBooks();
+                    Scanner getReturnTitleFromUser = new Scanner(System.in);
+                    String returnedBookTitle = getReturnTitleFromUser.nextLine();
+                    returnBookToLibrary(returnedBookTitle);
                     option = userInput.nextInt();
                     break;
 
@@ -64,9 +78,35 @@ public class BibliotecaApp {
         }
     }
 
-    public void removeBookFromLibrary(String bookTitle) {
+    public void returnBookToLibrary(String returnedBookTitle) {
+        for(Book book : getCheckedOutBooks()){
+            if(book.getBookName().equals(returnedBookTitle)){
+                book.setAvailable(true);
+                break;
+            }
+        }
+    }
+
+    private void printCheckedOutBooks() {
+        for(Book book : getCheckedOutBooks()){
+            System.out.println(book.printBookInfo());
+        }
+    }
+
+    public ArrayList<Book> getCheckedOutBooks() {
+        ArrayList<Book> checkedOutBooks = new ArrayList<Book>();
+        for (Book book : library) {
+            if (!book.getAvailable()) {
+                checkedOutBooks.add(book);
+            }
+        }
+        return checkedOutBooks;
+    }
+
+
+    public void removeBookFromLibrary(String bookTitle) throws Exception {
         boolean bookFound = false;
-        for(Book book : library){
+        for(Book book : getAvailableBooks()){
             if(book.getBookName().equals(bookTitle)){
                 book.setAvailable(false);
                 bookFound = true;
@@ -74,7 +114,7 @@ public class BibliotecaApp {
             }
         }
         if(!bookFound){
-            System.out.println("Sorry, that book is unavailable");
+            throw new Exception("Sorry that book is not available.");
         }
     }
 
