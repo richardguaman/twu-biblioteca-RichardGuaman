@@ -16,15 +16,19 @@ public class BibliotecaApp {
     }
 
     private void printAvailableBooks() {
-        int bookIndex = 1;
         for (Book book : getAvailableBooks()) {
-            System.out.println(bookIndex + ". " + book.printBookInfo());
-            bookIndex ++;
+                System.out.println(book.printBookInfo());
         }
     }
 
-    public ArrayList<Book> getAvailableBooks(){
-        return library;
+    public ArrayList<Book> getAvailableBooks() {
+        ArrayList<Book> availableBooks = new ArrayList<Book>();
+        for (Book book : library) {
+            if (book.getAvailable()) {
+                availableBooks.add(book);
+            }
+        }
+        return availableBooks;
     }
 
     private void menu() {
@@ -38,15 +42,17 @@ public class BibliotecaApp {
                 case 1:
                     printAvailableBooks();
                     option = userInput.nextInt();
-                    continue;
+                    break;
 
                 case 2:
-                    System.out.println("Please enter the book index of the book you would like to check out from the list below:");
+                    System.out.println("Please enter the book title of the book you would like to check out from the list below:");
                     printAvailableBooks();
                     Scanner getTitleFromUser = new Scanner(System.in);
-                    int bookIndex = getTitleFromUser.nextInt() - 1;
-                    removeBookFromLibrary(bookIndex);
-                    continue;
+                    String bookTitle = getTitleFromUser.nextLine();
+                    removeBookFromLibrary(bookTitle);
+                    System.out.println("Thank you! Enjoy the book");
+                    option = userInput.nextInt();
+                    break;
 
                 case 0:
                     System.exit(0);
@@ -58,9 +64,13 @@ public class BibliotecaApp {
         }
     }
 
-    public void removeBookFromLibrary(int bookIndex) {
-        library.get(bookIndex).setAvailable(false);
-        library.remove(bookIndex);
+    public void removeBookFromLibrary(String bookTitle) {
+        for(Book book : library){
+            if(book.getBookName().equals(bookTitle)){
+                book.setAvailable(false);
+                break;
+            }
+        }
     }
 
     public void populateBooks() {

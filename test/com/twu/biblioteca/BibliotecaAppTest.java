@@ -10,7 +10,7 @@ public class BibliotecaAppTest {
         BibliotecaApp app = new BibliotecaApp();
         app.populateBooks();
         assertEquals(3,app.getAvailableBooks().size());
-        app.removeBookFromLibrary(1);
+        app.removeBookFromLibrary("Biology");
         assertEquals(2,app.getAvailableBooks().size());
     }
 }

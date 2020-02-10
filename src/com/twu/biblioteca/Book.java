@@ -24,6 +24,10 @@ public class Book {
         return yearPublished;
     }
 
+    public boolean getAvailable(){
+        return isAvailable;
+    }
+
     public void setAvailable(boolean availability) {
         isAvailable = availability;
     }
