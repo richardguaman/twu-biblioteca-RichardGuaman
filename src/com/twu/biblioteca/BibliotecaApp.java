@@ -65,11 +65,16 @@ public class BibliotecaApp {
     }
 
     public void removeBookFromLibrary(String bookTitle) {
+        boolean bookFound = false;
         for(Book book : library){
             if(book.getBookName().equals(bookTitle)){
                 book.setAvailable(false);
+                bookFound = true;
                 break;
             }
+        }
+        if(!bookFound){
+            System.out.println("Sorry, that book is unavailable");
         }
     }
 
