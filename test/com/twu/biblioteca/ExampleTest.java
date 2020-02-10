@@ -18,7 +18,6 @@ public class ExampleTest {
         }
     };
 
-
     @Test
     public void testBookNamePrint() {
         assertEquals(book1.getBookName(),"TestName");
