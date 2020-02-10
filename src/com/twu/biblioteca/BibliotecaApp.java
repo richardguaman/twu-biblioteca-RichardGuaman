@@ -65,6 +65,7 @@ public class BibliotecaApp {
                     Scanner getReturnTitleFromUser = new Scanner(System.in);
                     String returnedBookTitle = getReturnTitleFromUser.nextLine();
                     returnBookToLibrary(returnedBookTitle);
+                    System.out.println("Thank you for returning the book.");
                     option = userInput.nextInt();
                     break;
 
